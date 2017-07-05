@@ -172,3 +172,6 @@ table td a{
     padding: 3px;
     margin: 0 0 20px 0;
 }
+legend {
+    padding-left: 20px;
+}
