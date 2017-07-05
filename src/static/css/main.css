@@ -2,8 +2,11 @@
 * { box-sizing: border-box;}
 body {
     height: 85vh;
-    margin: 0;
+    margin: auto;
     font-family: 'Raleway', sans-serif;
+}
+a {
+    text-decoration: none;
 }
 .intro-text {
     width: 100%;
@@ -34,7 +37,7 @@ nav{
     background: #fff;
     width: 100%;
 }
-.nav .btn a { color: #fff;
+.nav .btn a  { color: #fff;
     font-size: 15px;
     padding: 10px;
 }
@@ -45,6 +48,23 @@ nav{
     width: auto;
     border-radius: 25px;
     margin: 0 10px;
+    text-align: center;
+}
+.btn-red {
+    padding: 5px 10px;
+    background:  #f44242;
+    width: auto;
+    border-radius: 25px;
+    margin: 0 10px;
+    text-align: center;
+}
+.btn-blue {
+    padding: 5px 10px;
+    background:  #4298f4;
+    width: auto;
+    border-radius: 25px;
+    margin: 0 10px;
+    text-align: center;
 }
 .nav-bar li a {
     color: #008000;
@@ -60,7 +80,6 @@ nav{
     position: relative;
     right: 0 !important;
     float:right !important;
-    padding: 2px;
 }
 footer {
     clear: both;
@@ -82,7 +101,7 @@ footer {
     width: 30%;
     margin: 30px 50px 0 0;
 }
-input {
+input, textarea {
     margin: 5px;
     border: 1px solid #008000;
     border-radius: 25px;
@@ -123,4 +142,27 @@ fieldset{
 .login_form {
     margin: auto;
     width: 50%;
+}
+.dashboard {
+    margin: auto;
+    width: 80%;
+}
+.add {
+    margin: auto;
+    width: 80%;
+}
+.listing {
+    width: 80%;
+}
+table{
+    width: 100%;
+}
+th, td {
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+}
+th {background-color: #4CAF50;}
+tr:nth-child(even) {background-color: #f2f2f2}
+table td a{
+    color: #fff;
 }
