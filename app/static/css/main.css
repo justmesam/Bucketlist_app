@@ -78,8 +78,8 @@ nav{
 }
 .far-right {
     position: relative;
-    right: 0 !important;
-    float:right !important;
+    right: 0;
+    float:right;
 }
 footer {
     clear: both;
