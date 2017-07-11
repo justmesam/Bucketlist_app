@@ -59,6 +59,3 @@ class User(object):
     def save_to_users(self):
         """this method saves the user to users"""
         Data.add_data(self.user_data())
-
-    def __repr__(self):
-        return '<%s %s %s %s>' % (self.name, self.username, self.email, self.password)
