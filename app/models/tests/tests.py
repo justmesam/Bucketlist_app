@@ -1,6 +1,8 @@
 """ module for unit testing my  classes"""
 import unittest
+import datetime
 from app.models.data import Data
+from app.models.user import User
 from app.models.bucketlist import Bucketlist
 class Testclass(unittest.TestCase):
     """ main test class"""
@@ -17,15 +19,16 @@ class Testclass(unittest.TestCase):
                             'owner_id' : '528drrdd9540dab149eceedb14'}
         self.item1 = {'bucketlist_id' : 'sdf528drr0dab149eceedb14',
                       '_id' : '098un528drr0dab149eceedb14',
-                      'item' : 'dancing in town',
+                      'item_name' : 'dancing in town',
                       'owner' : 'sammy',
+                      'owner_id' : '528drrdd9540dab149eceedb14',
                       'date' : '12 - 07 - 2017'}
         self.data = Data
         del self.data.users[:]
         del self.data.items[:]
         del self.data.bucketlists[:]
 
-## Data class tests ##
+## Data tests ##
     def test_user_initializes_with_0(self):
         initial_list = len(self.data.users)
         self.data.users.append(self.user1)
@@ -69,11 +72,34 @@ class Testclass(unittest.TestCase):
         result2 = self.data.get_the_dictionary('098un528drr0dab149eceedb14', self.data.items)
         self.assertEqual(result2, self.item1)
         self.data.add_data(self.bucketlist1)
-        result3 = self.data.get_the_dictionary('sdf528drr0dab149eceedb14', self.data.bucketlists)
+        result3 = self.data.get_the_dictionary('528drrdd9540dab149eceedb14', self.data.bucketlists)
         self.assertEqual(len(result3), 2)
+        self.data.add_data(self.item1)
+        result4 = self.data.get_the_dictionary('sdf528drr0dab149eceedb14', self.data.items)
+        self.assertEqual(len(result4), 2)
 
+## bucketlist test ##
+    def test_new_item(self):
+        bucket1 = Bucketlist('bucket 1', 'sammy',
+                             'test intro', '528drrdd9540dab149eceedb14', _id=None)
+        bucket1.new_item('dancing in town', date=datetime.datetime.utcnow())
+        result = self.data.get_the_dictionary('528drrdd9540dab149eceedb14', self.data.items)
+        self.assertIsInstance(result, dict)
 
+## user tests ##
+    def test_user_exists(self):
+        self.data.add_data(self.user1)
+        result = User.user_exists('samysam@email')
+        self.assertTrue(result)
+        result1 = User.user_exists('johndoe@email')
+        self.assertFalse(result1)
 
+    def test_register(self):
+        self.data.add_data(self.user1)
+        result = User.register('john', 'johndoe', 'johndoe@email', '12345')
+        self.assertTrue(result)
+        result1 = User.register('samuel', 'sammy', 'samysam@email', '12345')
+        self.assertFalse(result1)
 
 if __name__ == '__main__':
     unittest.main()
