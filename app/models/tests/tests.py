@@ -77,6 +77,8 @@ class Testclass(unittest.TestCase):
         self.data.add_data(self.item1)
         result4 = self.data.get_the_dictionary('sdf528drr0dab149eceedb14', self.data.items)
         self.assertEqual(len(result4), 2)
+        result5 = self.data.get_the_dictionary('12345', self.data.items)
+        self.assertEqual(result5, "id don't exist")
 
 ## bucketlist test ##
     def test_new_item(self):
