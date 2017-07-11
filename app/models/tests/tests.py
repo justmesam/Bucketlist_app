@@ -101,5 +101,11 @@ class Testclass(unittest.TestCase):
         result1 = User.register('samuel', 'sammy', 'samysam@email', '12345')
         self.assertFalse(result1)
 
+    def test_create_bucketlist(self):
+        user = User('john', 'johny', 'johnjohny', '54321', _id=None)
+        user.create_bucketlist('bucketlist challenge', 'bucketlist creation is fun')
+        result = len(self.data.bucketlists)
+        self.assertEqual(result, 1)
+
 if __name__ == '__main__':
     unittest.main()
