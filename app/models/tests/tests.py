@@ -107,5 +107,13 @@ class Testclass(unittest.TestCase):
         result = len(self.data.bucketlists)
         self.assertEqual(result, 1)
 
+    def test_create_item(self):
+        self.data.add_data(self.bucketlist1)
+        user = User('john', 'johny', 'johnjohny', '54321', _id=None)
+        user.create_item('sdf528drr0dab149eceedb14', 'bungee jumping')
+        result = len(self.data.items)
+        self.assertEqual(result, 1)
+
+
 if __name__ == '__main__':
     unittest.main()
