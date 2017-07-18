@@ -12,6 +12,17 @@ class TestClass(TestCase):
 
     def test_index_page(self):
         result = self.app.get('/', follow_redirects=True)
+        result1 = self.app.get('/index', follow_redirects=True)
+        self.assertEqual(result.status_code, 200)
+        self.assertEqual(result1.status_code, 200)
+
+
+    def test_about_page(self):
+        result = self.app.get('/about', follow_redirects=True)
+        self.assertEqual(result.status_code, 200)
+
+    def test_FAQ_page(self):
+        result = self.app.get('/faqs', follow_redirects=True)
         self.assertEqual(result.status_code, 200)
 
 if __name__ == '__main__':
