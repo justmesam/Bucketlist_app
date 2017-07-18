@@ -4,9 +4,9 @@ from wtforms import Form, StringField, TextAreaField, PasswordField, validators
 
 
 class RegisterForm(Form):
-    name = StringField('Name', [validators.Length(min=1, max=50)])
-    username = StringField('Username', [validators.Length(min=4, max=25)])
-    email = StringField('Email', [validators.Length(min=6, max=50)])
+    name = StringField('Name', [validators.DataRequired()])
+    username = StringField('Username', [validators.DataRequired()])
+    email = StringField('Email', [validators.DataRequired(), validators.Email()])
     password = PasswordField('Password', [
         validators.DataRequired(),
         validators.EqualTo('confirm', message='Passwords do not match')
@@ -15,5 +15,13 @@ class RegisterForm(Form):
 
 
 class BucketlistForm(Form):
-    title = StringField('Title', [validators.Length(min=1, max=200)])
+    title = StringField('Title', [validators.Length(min=1, max=20)])
     intro = TextAreaField('Body', [validators.Length(min=5)])
+
+class ItemForm(Form):
+    title = StringField('Title', [validators.Length(min=1, max=20)])
+    intro = TextAreaField('Body', [validators.Length(min=5)])
+
+class LoginForm(Form):
+    email = StringField('Email', [validators.DataRequired(), validators.Email()])
+    password = PasswordField('Password', [validators.DataRequired()])
