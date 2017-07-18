@@ -4,10 +4,10 @@ from app.models.data import Data
 
 class Item(object):
     """ Main item class"""
-    def __init__(self, bucketlist_id, item_name, owner, owner_id, date, _id=None):
+    def __init__(self, bucketlist_id, item_name, description, owner_id, date, _id=None):
         self.bucketlist_id = bucketlist_id
         self.item_name = item_name
-        self.owner = owner
+        self.description = description
         self.owner_id = owner_id
         self.date = date
         self._id = uuid.uuid4().hex
@@ -19,7 +19,7 @@ class Item(object):
             'bucketlist_id' : self.bucketlist_id,
             '_id' : self._id,
             'item_name' : self.item_name,
-            'owner' : self.owner,
+            'description' : self.description,
             'owner_id' : self.owner_id,
             'date' : self.date
         }
