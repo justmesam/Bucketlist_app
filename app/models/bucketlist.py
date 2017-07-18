@@ -12,14 +12,14 @@ class Bucketlist(object):
         self.intro = intro
         self.owner = owner
         self.owner_id = owner_id
-        self._id = uuid.uuid4().hex
+        self._id = uuid.uuid4().hex if _id is None else _id
 
 
-    def new_item(self, item_name, date=datetime.datetime.utcnow()):
+    def new_item(self, item_name, description, date=datetime.datetime.utcnow()):
         """method used for creating a  bucket list"""
         item = Item(bucketlist_id=self._id,
-                    owner=self.owner,
                     item_name=item_name,
+                    description=description,
                     owner_id=self.owner_id,
                     date=date)
         item.save_to_items()
