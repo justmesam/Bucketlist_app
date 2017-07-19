@@ -68,8 +68,7 @@ class User(object):
     @staticmethod
     def create_item(bucketlist_id, item_name, description):
         """method used to create bucketlist items"""
-        _id = bucketlist_id
-        data = Data.get_the_dictionary(_id, Data.bucketlists)
+        data = Data.get_the_dictionary(bucketlist_id, Data.bucketlists)
         bucketlist = Bucketlist(data['title'],
                                 data['owner'],
                                 data['intro'],
