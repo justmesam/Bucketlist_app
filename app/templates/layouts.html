@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="utf-8">
+        <title> Home |  Bucket list </title>
+        <link rel='stylesheet' href="{{ url_for('static', filename='css/main.css') }}">
+
+    </head>
+    <body>
+        {% include '_includes/_nav_bar.html'%}
+        <div class="">
+            {% block body %}
+            {% endblock %}
+        </div>
+
+        <footer>
+            <p> Created by<a href="https://github.com/justmesam/">Justmesam</a> <span class="far-right">Copyright (c) 2017 All Rights Reserved.</span></p>
+        </footer>
+
+    </body>
+</html>
