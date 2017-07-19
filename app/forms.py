@@ -1,5 +1,6 @@
 """this module handles the field defination of registration and bucketlist creation"""
 from flask_wtf import FlaskForm
+from flask_wtf.csrf import CSRFProtect
 from wtforms import Form, StringField, TextAreaField, PasswordField, validators
 
 
