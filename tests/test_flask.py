@@ -57,6 +57,11 @@ class TestClass(TestCase):
          self.assertEqual(result.status_code, 200)
          self.assertIn(b'Home', result.data)
 
+    def test_register(self):
+        result = self.register('john', 'johny', 'johndoe@gmail', '54321')
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'dashboard', result.data)
+
 
     def test_logout(self):
         result = self.logout()
