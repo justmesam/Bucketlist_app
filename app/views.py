@@ -185,3 +185,14 @@ def edit_bucketlist_item(_id):
         flash('Your Item has been updated', 'success')
         return redirect(url_for('bucketlist_items'))
     return render_template('edit_item.html', form=form)
+
+@app.route('/delete/<string:_id>')
+def delete_bucketlist(_id):
+    """ deletes a bucketlist and its items"""
+    Data.delete_dictionary(_id, Data.bucketlists)
+    all_items = Data.get_the_dictionary(_id, Data.items)
+    for item in all_items:
+        if item['id'] in Data.items:
+            Data.delete_dictionary(item['_id'], Data.items)
+            flash('Bucketlist deleted', 'Danger')
+    return redirect(url_for('dashboard'))
