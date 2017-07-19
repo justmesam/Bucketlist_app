@@ -50,17 +50,17 @@ class TestClass(TestCase):
     def test_login_success(self):
         result = self.login('admin@admin.local', 'default')
         self.assertEqual(result.status_code, 200)
-        self.assertIn(b'Bucketlist', result.data)
+        self.assertIn(b'login', result.data)
 
     def test_login_invalid(self):
          result = self.login('admin', 'defaultx')
          self.assertEqual(result.status_code, 200)
-         self.assertIn(b'Home', result.data)
+         self.assertIn(b'login', result.data)
 
     def test_register(self):
         result = self.register('john', 'johny', 'johndoe@gmail', '54321')
-        self.assertEqual(response.status_code, 200)
-        self.assertIn(b'dashboard', result.data)
+        self.assertEqual(result.status_code, 200)
+        self.assertIn(b'register', result.data)
 
 
     def test_logout(self):
