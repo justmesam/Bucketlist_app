@@ -1,23 +1,6 @@
-<!DOCTYPE html>
-<html>
-    <head>
+{% extends 'layouts.html'%}
 
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta charset="utf-8">
-        <title> Dashboard | la lista </title>
-        <link rel="stylesheet" href="../static/css/main.css">
-
-    </head>
-    <body>
-
-        <div class="nav">
-            <ul class="nav-bar">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">FAQs</a></li>
-                <li class="far-right btn"><a href="#">logout</a></li>
-            </ul>
-        </div>
+{% block body %}
         <div class="dashboard-nav">
             <ul class="nav nav-bar">
                 <li>Username</li>
@@ -46,9 +29,4 @@
                 </table>
             </div>
         </div>
-        <footer>
-            <p> Created by<a href="#">Justmesam</a> <span class="far-right">Copyright (c) 2017 All Rights Reserved.</span></p>
-        </footer>
-
-    </body>
-</html>
+{% endblock %}

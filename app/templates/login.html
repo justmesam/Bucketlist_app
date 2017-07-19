@@ -1,23 +1,6 @@
-<!DOCTYPE html>
-<html>
-    <head>
+{% extends 'layouts.html'%}
 
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Login | la lista</title>
-        <link rel="stylesheet" href="../static/css/main.css">
-
-    </head>
-    <body>
-
-        <div class="nav">
-            <ul class="nav-bar">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">FAQs</a></li>
-                <li class="far-right btn"><a href="#">Register</a></li>
-            </ul>
-        </div>
+{% block body %}
         <div class="_form">
             <form class="login_form">
                 <!--<fieldset>-->
@@ -28,11 +11,5 @@
                         <br><input class="btn" type="submit" name="submit" value="Login">
                 <!--</fieldset>-->
             </form>
-
         </div>
-        <footer>
-            <p> Created by
-                <a href="#">Justmesam</a> <span class="far-right">Copyright (c) 2017 All Rights Reserved.</span></p>
-        </footer>
-    </body>
-</html>
+{% endblock %}
