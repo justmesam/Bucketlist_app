@@ -14,11 +14,7 @@ class RegisterForm(Form):
     confirm = PasswordField('Confirm Password')
 
 
-class BucketlistForm(Form):
-    title = StringField('Title', [validators.Length(min=1, max=20)])
-    intro = TextAreaField('Body', [validators.Length(min=5)])
-
-class ItemForm(Form):
+class TextForm(Form):
     title = StringField('Title', [validators.Length(min=1, max=20)])
     intro = TextAreaField('Body', [validators.Length(min=5)])
 
