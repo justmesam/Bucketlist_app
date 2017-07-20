@@ -27,6 +27,7 @@ Change your directory to the directory  `cd Bucketlist_app`
 Let's start with creating a virtual environment;   
 First install virtual environment globally; `pip install virtualenv`  
 Lets create our virtual environment now, just simply do; `virtualenv venv` done!   
+Lets activate our environment; `source venv/bin/activate`
 Lets install all the packages we need, its quite easy; `pip install -r requirements.txt`  
 
 2. ### Testing   
