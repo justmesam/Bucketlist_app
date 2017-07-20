@@ -30,10 +30,10 @@ def register_user():
     """ The registration method"""
     form = RegisterForm(request.form)
     if request.method == 'POST' and form.validate():
-        name = form.data.name
-        username = form.data.username
-        email = form.data.email
-        password = generate_password_hash(form.data.password)
+        name = form.name.data
+        username = form.username.data
+        email = form.email.data
+        password = generate_password_hash(form.password.data)
 
         if User.register(name, username, email, password) is True:
             session['logged_in'] = True
@@ -50,8 +50,8 @@ def login_user():
     """ The user login method"""
     form = LoginForm(request.form)
     if request.method == 'POST' and form.validate():
-        email = form.data.email
-        password = form.data.password
+        email = form.email.data
+        password = form.password.data
 
         if User.user_exists(email) is True:
             if User.user_login_verify(email, password) is True:
@@ -87,7 +87,7 @@ def logout():
     """Method logs out user"""
     session.clear()
     flash('You have successfully logged out')
-    redirect(url_for('login_user'))
+    return redirect(url_for('login_user'))
 
 @app.route('/create_bucketlist', methods=['GET', 'POST'])
 @user_in_session
@@ -101,8 +101,8 @@ def create_bucketlist():
                 user_data[3],
                 user_data[4])
     if request.method == 'POST' and form.validate():
-        title = form.data.Title
-        intro = form.data.Body
+        title = form.title.data
+        intro = form.body.data
         user.create_bucketlist(title, intro)
         flash(' You have created a bucketlist', 'success')
         return redirect(url_for('dashboard'))
@@ -114,8 +114,8 @@ def create_item(bucketlist_id):
     """creates an item"""
     form = TextForm(request.form)
     if request.method == 'POST' and form.validate():
-        item_name = form.data.Title
-        description = form.data.Body
+        item_name = form.title.data
+        description = form.body.data
         User.create_item(bucketlist_id, item_name, description)
         flash(' You have created a bucketlist item', 'success')
         return redirect(url_for('list_items'))
@@ -124,13 +124,21 @@ def create_item(bucketlist_id):
 @app.route('/dashboard')
 @app.route('/bucketlists')
 @user_in_session
-def users_bucketlists():
+def dashboard():
     """method for displaying users bucketlists"""
     user = User.current_user(session['username'])
-    _id = user[4]
-    bucketlists = Data.get_the_dictionary(_id, Data.bucketlists)
+    if len(user) < 1:
+        return redirect(url_for('login_user'))
+    else:
+        _id = user[4]
+        bucketlists = Data.get_the_dictionary(_id, Data.bucketlists)
+        if bucketlists is type(dict):
+            bucketlists = [bucketlists]
+            return bucketlists
+        notify = 'You have no bucketlists yet'
     return render_template('dashboard.html',
                            bucketlists=bucketlists,
+                           notify=notify,
                            username=session['username'])
 
 @app.route('/items/<string:bucketlist_id>')
@@ -153,17 +161,17 @@ def edit_bucketlist(_id):
 
 ### populating the form for user to edit ###
 
-    form.data.Title = Data.bucketlists[index_]['title']
-    form.data.Body = Data.bucketlists[index_]['intro']
+    form.title.data = Data.bucketlists[index_]['title']
+    form.body.data = Data.bucketlists[index_]['intro']
 
     if request.method == 'POST' and form.validate():
-        title = request.form['title']
-        intro = request.form['intro']
+        title = request.form['Title']
+        intro = request.form['Body']
         Data.bucketlists[index_]['title'] = title
         Data.bucketlists[index_]['intro'] = intro
         flash('Your Bucketlist has been updated', 'success')
-        return redirect(url_for('bucketlist_items'))
-    return render_template('edit_bucketlist.html', form=form)
+        return redirect(url_for('dashboard'))
+    return render_template('create.html', form=form)
 
 @app.route('/edit_bucketlist_item/<string:_id>', methods=['GET', 'POST'])
 @user_in_session
@@ -174,8 +182,8 @@ def edit_bucketlist_item(_id):
 
 ### populating the form for user to edit ###
 
-    form.data.Title = Data.bucketlists[index_]['item_name']
-    form.data.Body = Data.bucketlists[index_]['description']
+    form.title.data = Data.bucketlists[index_]['item_name']
+    form.body.data = Data.bucketlists[index_]['description']
 
     if request.method == 'POST' and form.validate():
         title = request.form['item_name']
@@ -191,8 +199,9 @@ def delete_bucketlist(_id):
     """ deletes a bucketlist and its items"""
     Data.delete_dictionary(_id, Data.bucketlists)
     all_items = Data.get_the_dictionary(_id, Data.items)
-    for item in all_items:
-        if item['id'] in Data.items:
-            Data.delete_dictionary(item['_id'], Data.items)
-            flash('Bucketlist deleted', 'Danger')
+    if all_items is not None:
+        for item in all_items:
+            if item['id'] in Data.items:
+                Data.delete_dictionary(item['_id'], Data.items)
+                flash('Bucketlist deleted', 'Danger')
     return redirect(url_for('dashboard'))
