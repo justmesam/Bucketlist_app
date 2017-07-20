@@ -1,19 +1,12 @@
 {% extends 'layouts.html'%}
 
 {% block body %}
+{% from '_includes/_form_helpers.html' import render_field %}
         <div class="add">
             <h3>Create a new bucketlist.</h3>
-            <form class="">
-                <label for="text">Head;</label><br>
-                    <input type="text" name="head" value="" required><br>
-                <label for="textarea">Intro;</label><br>
-                    <textarea name="name" rows="8" cols="80"></textarea><br>
-                <hr>
-                <label for="item">Items</label><br>
-                    <input type="text" name="item" value="">
-                    <input type="text" name="item" value="">
-                    <input type="text" name="item" value="">
-                    <p class="btn-blue far-right">... More items</p>
+            <form class="" method="post">
+                {{ render_field(form.title) }}
+                {{ render_field(form.body) }}
                 <input class="btn" type="submit" name="submit" value="submit">
             </form>
 

@@ -6,13 +6,12 @@
         <meta charset="utf-8">
         <title> Home |  Bucket list </title>
         <link rel='stylesheet' href="{{ url_for('static', filename='css/main.css') }}">
-        <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
 
     </head>
     <body>
         {% include '_includes/_nav_bar.html'%}
-        <div class="">
-                  {% include '_includes/_messages.html' %}
+        <div>
+        {% include '_includes/_messages.html' %}
             {% block body %}
             {% endblock %}
         </div>

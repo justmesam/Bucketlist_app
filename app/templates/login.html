@@ -1,13 +1,12 @@
 {% extends 'layouts.html'%}
 
 {% block body %}
-        <div class="_form">
-            <form class="login_form">
+{% from '_includes/_form_helpers.html' import render_field %}
+        <div class="form_log">
+            <form class="login_form" method="post">
                 <!--<fieldset>-->
-                    <label for="username">Username; </label><br>
-                        <input type="text"><br>
-                    <label for="password">Password; </label><br>
-                        <input type="password"><br>
+                        {{ render_field(form.email) }}
+                        {{ render_field(form.password) }}
                         <br><input class="btn" type="submit" name="submit" value="Login">
                 <!--</fieldset>-->
             </form>

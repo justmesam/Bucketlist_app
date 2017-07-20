@@ -1,20 +1,15 @@
 {% extends 'layouts.html' %}
 
 {% block body %}
+{% from '_includes/_form_helpers.html' import render_field %}
         <div class="">
-            <form class="register_form far-right">
+            <form class="register_form far-right" method="post">
                 <fieldset>
-                    <label>Name; </label><br>
-                        <input type="text"><br>
-                    <label for="username">Username; </label><br>
-                        <input type="text"><br>
-                    <label for="email">E-mail; </label><br>
-                        <input type="email"><br>
-                    <label for="password">Password; </label><br>
-                        <input type="password"><br>
-                    <label for="confirm password">Confirm Password; </label><br>
-                        <input type="password"><br>
-                        <br><input class="btn" type="submit" name="submit" value="Register">
+                    {{ render_field(form.username) }}
+                    {{ render_field(form.email) }}
+                    {{ render_field(form.password) }}
+                    {{ render_field(form.confirm) }}
+                    <br><input class="btn" type="submit" name="submit" value="Register">
                 </fieldset>
             </form>
         </div>
