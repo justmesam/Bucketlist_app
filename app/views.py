@@ -13,21 +13,25 @@ from app.models.data import Data
 @app.route('/index')
 def index():
     """renders the homepage of the app"""
-    return render_template('index.html')
+    page_title = "Home"
+    return render_template('index.html', title=page_title)
 
 @app.route('/about')
 def about():
     """renders the about """
-    return render_template('about.html')
+    page_title = "About"
+    return render_template('about.html', title=page_title)
 
 @app.route('/faqs')
 def faqs():
     """renders the faqs page"""
-    return render_template('faqs.html')
+    page_title = "Faqs"
+    return render_template('faqs.html', title=page_title)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register_user():
     """ The registration method"""
+    page_title = "Register"
     form = RegisterForm(request.form)
     if request.method == 'POST' and form.validate():
         username = form.username.data
@@ -42,11 +46,14 @@ def register_user():
         else:
             flash('Email exists!!! You can login instead!', 'error')
             return redirect(url_for('login_user'))
-    return render_template('register.html', form=form)
+    return render_template('register.html',
+                           form=form,
+                           title=page_title)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login_user():
     """ The user login method"""
+    page_title = "Login"
     form = LoginForm(request.form)
     if request.method == 'POST' and form.validate():
         email = form.email.data
@@ -65,7 +72,9 @@ def login_user():
         else:
             flash("Email doesn't exist!!  first login")
             return redirect(url_for('register_user'))
-    return render_template('login.html', form=form)
+    return render_template('login.html',
+                           form=form,
+                           title=page_title)
 
 def user_in_session(func):
     """function is decorated to verify user is in session
@@ -92,6 +101,7 @@ def logout():
 @user_in_session
 def create_bucketlist():
     """creates a bucketlist"""
+    page_title = "Add"
     form = TextForm(request.form)
     user_data = User.current_user(session['username'])
     user = User(user_data[0],
@@ -104,26 +114,32 @@ def create_bucketlist():
         user.create_bucketlist(title, intro)
         flash(' You have created a bucketlist', 'success')
         return redirect(url_for('dashboard'))
-    return render_template('create.html', form=form)
+    return render_template('create.html',
+                           form=form,
+                           title=page_title)
 
-@app.route('/create_item/<string:bucketlist_id>', methods=['GET', 'POST'])
+@app.route('/create_item/<string:_id>', methods=['GET', 'POST'])
 @user_in_session
-def create_item(bucketlist_id):
+def create_item(_id):
     """creates an item"""
+    page_title = "Add"
     form = TextForm(request.form)
     if request.method == 'POST' and form.validate():
         item_name = form.title.data
         description = form.body.data
-        User.create_item(bucketlist_id, item_name, description)
+        User.create_item(_id, item_name, description)
         flash(' You have created a bucketlist item', 'success')
-        return redirect(url_for('list_items'))
-    return render_template('add_item.html')
+        return redirect(url_for('bucketlist_items', _id=_id))
+    return render_template('add_item.html',
+                           form=form,
+                           title=page_title)
 
 @app.route('/dashboard')
 @app.route('/bucketlists')
 @user_in_session
 def dashboard():
     """method for displaying users bucketlists"""
+    page_title = "Dashboard"
     user = User.current_user(session['username'])
     if user is None:
         return redirect(url_for('logout'))
@@ -134,27 +150,32 @@ def dashboard():
     return render_template('dashboard.html',
                            bucketlists=bucketlists,
                            notify=notify,
-                           username=session['username'])
+                           username=session['username'],
+                           title=page_title)
 
-@app.route('/items/<string:bucketlist_id>')
+@app.route('/items/<string:_id>')
 @app.route('/items')
 @user_in_session
-def bucketlist_items(bucketlist_id):
+def bucketlist_items(_id):
     """method used for displaying a bucketlists items"""
-    bucketlist = Data.get_the_data(bucketlist_id, Data.bucketlists)
-    items = Data.get_the_data(bucketlist_id, Data.items)
+    page_title = "Items"
+    bucketlist_ = Data.get_the_data(_id, Data.bucketlists)
+    items = Data.get_the_data(_id, Data.items)
+    notify = 'You have no items yet'
     return render_template('items.html',
                            items=items,
-                           bucketlist=bucketlist)
+                           notify=notify,
+                           bucketlist_=bucketlist_,
+                           title=page_title)
 
 @app.route('/edit_bucketlist/<string:_id>', methods=['GET', 'POST'])
 @user_in_session
 def edit_bucketlist(_id):
     """method lets the user  edit existing buckelists"""
+    page_title = "Edit"
     index_ = Data.get_index(_id, Data.bucketlists)
     form = TextForm(request.form)
 
-### populating the form for user to edit ###
 
     form.title.data = Data.bucketlists[index_]['title']
     form.body.data = Data.bucketlists[index_]['intro']
@@ -166,28 +187,29 @@ def edit_bucketlist(_id):
         Data.bucketlists[index_]['intro'] = intro
         flash('Your Bucketlist has been updated', 'success')
         return redirect(url_for('dashboard'))
-    return render_template('create.html', form=form)
+    return render_template('create.html', form=form, title=page_title)
 
 @app.route('/edit_bucketlist_item/<string:_id>', methods=['GET', 'POST'])
 @user_in_session
 def edit_bucketlist_item(_id):
     """method lets the user  edit existing buckelists"""
+    page_title = "Edit"
     index_ = Data.get_index(_id, Data.items)
     form = TextForm(request.form)
 
 ### populating the form for user to edit ###
 
-    form.title.data = Data.bucketlists[index_]['item_name']
-    form.body.data = Data.bucketlists[index_]['description']
+    form.title.data = Data.items[index_]['item_name']
+    form.body.data = Data.items[index_]['description']
 
     if request.method == 'POST' and form.validate():
-        title = request.form['item_name']
-        intro = request.form['description']
-        Data.bucketlists[index_]['item_name'] = title
-        Data.bucketlists[index_]['description'] = intro
+        title = request.form['title']
+        intro = request.form['body']
+        Data.items[index_]['item_name'] = title
+        Data.items[index_]['description'] = intro
         flash('Your Item has been updated', 'success')
-        return redirect(url_for('bucketlist_items'))
-    return render_template('edit_item.html', form=form)
+        return redirect(url_for('bucketlist_items', _id=Data.items[index_]['owner_id']))
+    return render_template('add_item.html', form=form, title=page_title)
 
 @app.route('/delete/<string:_id>')
 def delete_bucketlist(_id):
@@ -196,7 +218,16 @@ def delete_bucketlist(_id):
     all_items = Data.get_the_data(_id, Data.items)
     if all_items is not None:
         for item in all_items:
-            if item['id'] in Data.items:
+            if item['_id'] in Data.items:
                 Data.delete_dictionary(item['_id'], Data.items)
     flash('Bucketlist deleted', 'Danger')
     return redirect(url_for('dashboard'))
+
+@app.route('/delete_item/<string:_id>')
+def delete_item(_id):
+    """ deletes a bucketlist and its items"""
+    index_ = Data.get_index(_id, Data.items)
+    b_id = Data.items[index_]['owner_id']
+    Data.delete_dictionary(_id, Data.items)
+    flash('Item deleted', 'Danger')
+    return redirect(url_for('bucketlist_items', _id=b_id))
