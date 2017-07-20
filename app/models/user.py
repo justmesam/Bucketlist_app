@@ -66,14 +66,15 @@ class User(object):
     @staticmethod
     def create_item(bucketlist_id, item_name, description):
         """method used to create bucketlist items"""
-        data = Data.get_the_dictionary(bucketlist_id, Data.bucketlists)
-        bucketlist = Bucketlist(data['title'],
-                                data['owner'],
-                                data['intro'],
-                                data['owner_id'],
-                                data['_id'])
-        bucketlist.new_item(item_name=item_name,
-                            description=description)
+        data_ = Data.get_the_data(bucketlist_id, Data.bucketlists)
+        for data in data_:
+            bucketlist = Bucketlist(data['title'],
+                                    data['owner'],
+                                    data['intro'],
+                                    data['owner_id'],
+                                    data['_id'])
+            bucketlist.new_item(item_name=item_name,
+                                description=description)
 
     def save_to_users(self):
         """this method saves the user to users"""
