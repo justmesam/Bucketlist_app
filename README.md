@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/justmesam/Bucketlist_app.svg?branch=flask-develop)](https://travis-ci.org/justmesam/Bucketlist_app)
+
+
 # Bucketlist_app
 ## Introduction
 An application to record and edit bucketlists...   
