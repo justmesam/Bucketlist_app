@@ -1,11 +1,8 @@
 """this module handles the field defination of registration and bucketlist creation"""
-from flask_wtf import FlaskForm
-from flask_wtf.csrf import CSRFProtect
 from wtforms import Form, StringField, TextAreaField, PasswordField, validators
 
 
-class RegisterForm(FlaskForm):
-    name = StringField('Name', [validators.DataRequired()])
+class RegisterForm(Form):
     username = StringField('Username', [validators.DataRequired()])
     email = StringField('Email', [validators.DataRequired(), validators.Email()])
     password = PasswordField('Password', [
@@ -15,10 +12,10 @@ class RegisterForm(FlaskForm):
     confirm = PasswordField('Confirm Password')
 
 
-class TextForm(FlaskForm):
-    title = StringField('Title', [validators.Length(min=1, max=20)])
-    intro = TextAreaField('Body', [validators.Length(min=5)])
+class TextForm(Form):
+    title = StringField('Title', [validators.Length(min=5)])
+    body = TextAreaField('Body', [validators.Length(min=5)])
 
-class LoginForm(FlaskForm):
+class LoginForm(Form):
     email = StringField('Email', [validators.DataRequired(), validators.Email()])
     password = PasswordField('Password', [validators.DataRequired()])
