@@ -17,10 +17,9 @@ class Bucketlist(object):
 
     def new_item(self, item_name, description, date=datetime.datetime.utcnow()):
         """method used for creating a  bucket list"""
-        item = Item(bucketlist_id=self._id,
-                    item_name=item_name,
+        item = Item(item_name=item_name,
                     description=description,
-                    owner_id=self.owner_id,
+                    owner_id=self._id,
                     date=date)
         item.save_to_items()
 
