@@ -64,9 +64,9 @@ class User(object):
         bucketlist_.save_to_bucketlists()
 
     @staticmethod
-    def create_item(bucketlist_id, item_name, description):
+    def create_item(_id, item_name, description):
         """method used to create bucketlist items"""
-        data_ = Data.get_the_data(bucketlist_id, Data.bucketlists)
+        data_ = Data.get_the_data(_id, Data.bucketlists)
         for data in data_:
             bucketlist = Bucketlist(data['title'],
                                     data['owner'],
