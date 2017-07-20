@@ -7,8 +7,7 @@ from app.models.bucketlist import Bucketlist
 class User(object):
     """main user class"""
 
-    def __init__(self, name, username, email, password, _id=None):
-        self.name = name
+    def __init__(self, username, email, password, _id=None):
         self.username = username
         self.email = email
         self.password = password
@@ -27,7 +26,7 @@ class User(object):
         if user_exist is True:
             emails_password = "".join([i['password']\
              for i in Data.users if email == i['email']])
-            return emails_password == password
+            return check_password_hash(emails_password, password)
         return False
 
     @staticmethod
@@ -37,11 +36,11 @@ class User(object):
         return "".join(username)
 
     @classmethod
-    def register(cls, name, username, email, password):
+    def register(cls, username, email, password):
         """method registers a user to the app"""
         user = cls.user_exists(email)
         if user is False:
-            new_user = cls(name, username, email, password)
+            new_user = cls(username, email, password)
             new_user.save_to_users()
             return True
         else:
@@ -50,7 +49,6 @@ class User(object):
     def user_data(self):
         """ The method returns user data to be saved"""
         return {
-            'name': self.name,
             'username': self.username,
             'email': self.email,
             'password': self.password,
@@ -86,12 +84,14 @@ class User(object):
         """
         method gets user details using the session username to create the instance
          of the user logged so as to create a bucketlist"""
-        user = [i for i in Data.users if username == i['username']]
-        user = user[0]
-        return (
-            user['name'],
-            user['username'],
-            user['email'],
-            user['password'],
-            user['_id']
-            )
+        user_ = [i for i in Data.users if username == i['username']]
+        if len(user_) < 1:
+            return None
+        else:
+            for user in user_:
+                return (
+                    user['username'],
+                    user['email'],
+                    user['password'],
+                    user['_id']
+                    )
