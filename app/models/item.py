@@ -4,8 +4,7 @@ from app.models.data import Data
 
 class Item(object):
     """ Main item class"""
-    def __init__(self, bucketlist_id, item_name, description, owner_id, date, _id=None):
-        self.bucketlist_id = bucketlist_id
+    def __init__(self, item_name, description, owner_id, date, _id=None):
         self.item_name = item_name
         self.description = description
         self.owner_id = owner_id
@@ -16,7 +15,6 @@ class Item(object):
     def item_data(self):
         """returns the data to be saved to items list"""
         return {
-            'bucketlist_id' : self.bucketlist_id,
             '_id' : self._id,
             'item_name' : self.item_name,
             'description' : self.description,
