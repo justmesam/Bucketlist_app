@@ -63,7 +63,7 @@ def login_user():
                 flash('Invalid Login!! Password or Email incorrect', 'error')
                 return redirect(url_for('login_user'))
         else:
-            flash("Email doesn't exist!!  first")
+            flash("Email doesn't exist!!  first login")
             return redirect(url_for('register_user'))
     return render_template('login.html', form=form)
 
@@ -129,7 +129,7 @@ def dashboard():
         return redirect(url_for('logout'))
     else:
         _id = user[3]
-        bucketlists = Data.get_the_dictionary(_id, Data.bucketlists)
+        bucketlists = Data.get_the_data(_id, Data.bucketlists)
         notify = 'You have no bucketlists yet'
     return render_template('dashboard.html',
                            bucketlists=bucketlists,
@@ -141,8 +141,8 @@ def dashboard():
 @user_in_session
 def bucketlist_items(bucketlist_id):
     """method used for displaying a bucketlists items"""
-    bucketlist = Data.get_the_dictionary(bucketlist_id, Data.bucketlists)
-    items = Data.get_the_dictionary(bucketlist_id, Data.items)
+    bucketlist = Data.get_the_data(bucketlist_id, Data.bucketlists)
+    items = Data.get_the_data(bucketlist_id, Data.items)
     return render_template('items.html',
                            items=items,
                            bucketlist=bucketlist)
@@ -193,7 +193,7 @@ def edit_bucketlist_item(_id):
 def delete_bucketlist(_id):
     """ deletes a bucketlist and its items"""
     Data.delete_dictionary(_id, Data.bucketlists)
-    all_items = Data.get_the_dictionary(_id, Data.items)
+    all_items = Data.get_the_data(_id, Data.items)
     if all_items is not None:
         for item in all_items:
             if item['id'] in Data.items:
