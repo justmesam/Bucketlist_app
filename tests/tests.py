@@ -1,6 +1,7 @@
 """ module for unit testing my  classes"""
 import unittest
 import datetime
+from werkzeug.security import generate_password_hash
 from app.models.data import Data
 from app.models.user import User
 from app.models.bucketlist import Bucketlist
@@ -132,8 +133,10 @@ class Testclass(unittest.TestCase):
 
     def test_user_login_verify(self):
         self.data.add_data(self.user1)
-        result = User.user_login_verify('samysam@email', '12345')
-        result1 = User.user_login_verify('johndoe@email', '1234567')
+        pass1 = generate_password_hash('12345')
+        pass2 = generate_password_hash('1234567')
+        result = User.user_login_verify('samysam@email', pass1)
+        result1 = User.user_login_verify('johndoe@email', pass2)
         self.assertTrue(result)
         self.assertFalse(result1)
 
