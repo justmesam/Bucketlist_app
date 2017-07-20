@@ -1,0 +1,43 @@
+{% extends 'layouts.html'%}
+
+{% block body %}
+        {% for bucketlist in bucketlist_ %}
+            <div class="dashboard-nav">
+                <ul class="nav nav-bar">
+                    <li style="text-transform:capitalize; font-size:35px,">
+                        {{ bucketlist['title'] }}
+                    </li>
+                    <li class="btn far-right"><a href="/create_item/{{ bucketlist['_id'] }}"> Create an item</a></li>
+                </ul>
+            </div>
+        {% endfor %}
+        <div class="dashboard">
+            <div class="listing">
+            {% if items %}
+            <table>
+                <tr>
+                    <th>Item Name</th>
+                    <th>Item Description</th>
+                </tr>
+                    {% for item in items %}
+                    <tr>
+                        <td>
+                            <a href="#" style="color:#000">
+                            {{ item['item_name'] }}
+                            </a>
+                        </td>
+                        <td>
+                            <a href="#" style="color:#000">
+                            {{ item['description'] }}
+                            </a>
+                            <a class="far-right btn-blue"href="/edit_bucketlist_item/{{ item['_id'] }}">Edit</a>
+                            <a id="trigger" class="far-right btn-blue">preview</a>
+                            <a class="far-right btn-red" href="/delete_item/{{ item['_id'] }}">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+            </table>
+            {% else %}
+                <h3> {{ notify }}</h3>
+            {% endif %}
+{% endblock %}

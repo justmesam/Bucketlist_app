@@ -8,7 +8,7 @@
             <li class="far-right btn"> <a href="{{ url_for('dashboard')}}">Dashboard</a></li>
             <li class="far-right btn"> <a href="{{ url_for('logout')}}">logout</a></li>
         {% else %}
-            <li class="far-right btn"> <a href="{{ url_for('register_user')}}">register</a></li>
+            <li class="far-right btn"><a href="{{ url_for('register_user')}}">Register</a></li>
             <li class="far-right btn"> <a href="{{ url_for('login_user')}}">login</a></li>
         {% endif %}
     </ul>
