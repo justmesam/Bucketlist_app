@@ -37,14 +37,15 @@ nav{
     background: #fff;
     width: 100%;
 }
-.nav .btn a  { color: #fff;
+.nav .btn a  {
+    color: #fff;
     font-size: 15px;
     padding: 10px;
 }
 .btn {
     border: 1px solid;
     padding: 10px 20px;
-    background:  #008000;
+    background:#008000;
     width: auto;
     border-radius: 25px;
     margin: 0 10px;
