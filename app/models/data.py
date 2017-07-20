@@ -17,17 +17,11 @@ class Data(object):
             Data.items.append(arg)
 
     @staticmethod
-    def get_the_dictionary(_id, arg):
+    def get_the_data(_id, arg):
         """this method uses id attribute to get the dictionary"""
         data_ = [i for i in arg if _id == i['_id']\
-         or _id == i['owner_id'] or _id == i['bucketlist_id']]
-        if len(data_) == 1:
-            data_ = data_[0]
-            return data_
-        elif len(data_) > 1:
-            return data_
-        else:
-            return "id don't exist"
+         or _id == i['owner_id']]
+        return data_
 
     @staticmethod
     def get_index(_id, arg):
