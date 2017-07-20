@@ -30,12 +30,11 @@ def register_user():
     """ The registration method"""
     form = RegisterForm(request.form)
     if request.method == 'POST' and form.validate():
-        name = form.name.data
         username = form.username.data
         email = form.email.data
         password = generate_password_hash(form.password.data)
 
-        if User.register(name, username, email, password) is True:
+        if User.register(username, email, password) is True:
             session['logged_in'] = True
             session['username'] = username
             flash('Welcome to your new profile {} '.format(username), 'succes')
@@ -98,8 +97,7 @@ def create_bucketlist():
     user = User(user_data[0],
                 user_data[1],
                 user_data[2],
-                user_data[3],
-                user_data[4])
+                user_data[3])
     if request.method == 'POST' and form.validate():
         title = form.title.data
         intro = form.body.data
@@ -127,14 +125,11 @@ def create_item(bucketlist_id):
 def dashboard():
     """method for displaying users bucketlists"""
     user = User.current_user(session['username'])
-    if len(user) < 1:
-        return redirect(url_for('login_user'))
+    if user is None:
+        return redirect(url_for('logout'))
     else:
-        _id = user[4]
+        _id = user[3]
         bucketlists = Data.get_the_dictionary(_id, Data.bucketlists)
-        if bucketlists is type(dict):
-            bucketlists = [bucketlists]
-            return bucketlists
         notify = 'You have no bucketlists yet'
     return render_template('dashboard.html',
                            bucketlists=bucketlists,
@@ -165,8 +160,8 @@ def edit_bucketlist(_id):
     form.body.data = Data.bucketlists[index_]['intro']
 
     if request.method == 'POST' and form.validate():
-        title = request.form['Title']
-        intro = request.form['Body']
+        title = request.form['title']
+        intro = request.form['body']
         Data.bucketlists[index_]['title'] = title
         Data.bucketlists[index_]['intro'] = intro
         flash('Your Bucketlist has been updated', 'success')
@@ -203,5 +198,5 @@ def delete_bucketlist(_id):
         for item in all_items:
             if item['id'] in Data.items:
                 Data.delete_dictionary(item['_id'], Data.items)
-                flash('Bucketlist deleted', 'Danger')
+    flash('Bucketlist deleted', 'Danger')
     return redirect(url_for('dashboard'))
