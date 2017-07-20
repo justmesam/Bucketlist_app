@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/justmesam/Bucketlist_app.svg?branch=flask-develop)](https://travis-ci.org/justmesam/Bucketlist_app)
-
+[![Coverage Status](https://coveralls.io/repos/github/justmesam/Bucketlist_app/badge.svg?branch=flask-develop)](https://coveralls.io/github/justmesam/Bucketlist_app?branch=flask-develop)
 
 # Bucketlist_app
 ## Introduction
