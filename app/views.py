@@ -104,16 +104,19 @@ def create_bucketlist():
     page_title = "Add"
     form = TextForm(request.form)
     user_data = User.current_user(session['username'])
-    user = User(user_data[0],
-                user_data[1],
-                user_data[2],
-                user_data[3])
-    if request.method == 'POST' and form.validate():
-        title = form.title.data
-        intro = form.body.data
-        user.create_bucketlist(title, intro)
-        flash(' You have created a bucketlist', 'success')
-        return redirect(url_for('dashboard'))
+    if user_data is not None:
+        user = User(user_data[0],
+                    user_data[1],
+                    user_data[2],
+                    user_data[3])
+        if request.method == 'POST' and form.validate():
+            title = form.title.data
+            intro = form.body.data
+            user.create_bucketlist(title, intro)
+            flash(' You have created a bucketlist', 'success')
+            return redirect(url_for('dashboard'))
+    else:
+        return redirect(url_for('login'))
     return render_template('create.html',
                            form=form,
                            title=page_title)
