@@ -31,21 +31,6 @@ class TestClass(TestCase):
         return self.app.get('/logout',
                             follow_redirects=True)
 
-    def test_misc_pages(self):
-        """tests the response of the miscellaneous pages"""
-        ## >> index page << ##
-        result = self.app.get('/', follow_redirects=True)
-        result1 = self.app.get('/index', follow_redirects=True)
-        self.assertEqual(result.status_code, 200)
-        self.assertEqual(result1.status_code, 200)
-
-        ## >> about page << ##
-        result = self.app.get('/about', follow_redirects=True)
-        self.assertEqual(result.status_code, 200)
-
-        ## >> faqs page << ##
-        result = self.app.get('/faqs', follow_redirects=True)
-        self.assertEqual(result.status_code, 200)
 
     def test_login_success(self):
         result = self.login('admin@admin.local', 'default')

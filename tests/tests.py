@@ -51,19 +51,6 @@ class Testclass(unittest.TestCase):
         result1 = User.register('sammy', 'samysam@email', '12345')
         self.assertFalse(result1)
 
-    def test_create_bucketlist(self):
-        user = User('johny', 'johnjohny', '54321', _id=None)
-        user.create_bucketlist('bucketlist challenge', 'bucketlist creation is fun')
-        result = len(self.data.bucketlists)
-        self.assertEqual(result, 1)
-
-    def test_create_item(self):
-        self.data.add_data(self.bucketlist1)
-        user = User('johny', 'johnjohny', '54321', _id=None)
-        user.create_item('sdf528drr0dab149eceedb14', 'another description', 'bungee jumping')
-        result = len(self.data.items)
-        self.assertEqual(result, 1)
-
     def test_user_login_verify(self):
         result1 = User.user_login_verify('johndoe@email', '1234567')
         self.assertFalse(result1)
