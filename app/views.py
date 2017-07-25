@@ -164,7 +164,7 @@ def bucketlist_items(_id):
     page_title = "Items"
     bucketlist_ = Data.get_the_data(_id, Data.bucketlists)
     items = Data.get_the_data(_id, Data.items)
-    notify = 'You have no items yet'
+    notify = 'You have no items in this bucketlist yet'
     return render_template('items.html',
                            items=items,
                            notify=notify,
