@@ -1,0 +1,14 @@
+{% extends 'layouts.html'%}
+
+{% block body %}
+{% from '_includes/_form_helpers.html' import render_field %}
+        <div class="add">
+            <h3> {{ title }} an item.</h3>
+            <form class="" method="post">
+                {{ render_field(form.title) }}
+                {{ render_field(form.body) }}
+                <input class="btn" type="submit" name="submit" value="submit">
+            </form>
+
+        </div>
+{% endblock %}

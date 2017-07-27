@@ -1,0 +1,13 @@
+<div class="nav">
+    <ul class="nav-bar">
+        <li><a href="{{ url_for('index') }}">Home</a></li>
+
+        {% if session.logged_in %}
+            <li class="far-right btn"> <a href="{{ url_for('dashboard')}}">Bucketlists</a></li>
+            <li class="far-right btn"> <a href="{{ url_for('logout')}}">logout</a></li>
+        {% else %}
+            <li class="far-right btn"><a href="{{ url_for('register_user')}}">Register</a></li>
+            <li class="far-right btn"> <a href="{{ url_for('login_user')}}">login</a></li>
+        {% endif %}
+    </ul>
+</div>
