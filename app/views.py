@@ -70,7 +70,7 @@ def login_user():
                 flash('Invalid Login!! Password or Email incorrect', 'error')
                 return redirect(url_for('login_user'))
         else:
-            flash("Email doesn't exist!!  first login")
+            flash("Email do not exist!!  first register")
             return redirect(url_for('register_user'))
     return render_template('login.html',
                            form=form,
