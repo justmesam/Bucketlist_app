@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Athiti|Montserrat|Raleway');
 * { box-sizing: border-box;}
+
 body, html {
     padding : 0;
     margin: 0;
@@ -87,6 +88,12 @@ nav{
     float:right;
 }
 footer {
+    clear: both;
+    margin: 5px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 100;
+    bottom: 0;
+    width: 100%;
 }
 .nav-bar a, footer a{
     margin: 0px 10px 0px 10px;

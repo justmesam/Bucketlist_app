@@ -76,7 +76,6 @@ def login_user():
                            form=form,
                            title=page_title)
 
-
 def user_in_session(func):
     """function is decorated to verify user is in session
      before accessing various pages"""
@@ -91,6 +90,7 @@ def user_in_session(func):
     return wrap
 
 
+  
 @app.route('/logout/')
 @user_in_session
 def logout():
@@ -120,7 +120,6 @@ def create_bucketlist():
                            form=form,
                            title=page_title)
 
-
 @app.route('/create_item/<string:_id>/', methods=['GET', 'POST'])
 @user_in_session
 def create_item(_id):
@@ -136,7 +135,6 @@ def create_item(_id):
     return render_template('add_item.html',
                            form=form,
                            title=page_title)
-
 
 @app.route('/dashboard/')
 @app.route('/bucketlists/')
@@ -176,7 +174,6 @@ def edit_bucketlist(_id):
     page_title = "Edit"
     index_ = Data.get_index(_id, Data.bucketlists)
     form = TextForm(request.form)
-
     form.title.data = Data.bucketlists[index_]['title']
     form.body.data = Data.bucketlists[index_]['intro']
 
@@ -225,7 +222,6 @@ def delete_bucketlist(_id):
                 Data.delete_dictionary(item['_id'], Data.items)
     flash('Bucketlist deleted', 'Danger')
     return redirect(url_for('dashboard'))
-
 
 @app.route('/delete_item/<string:_id>/')
 def delete_item(_id):
