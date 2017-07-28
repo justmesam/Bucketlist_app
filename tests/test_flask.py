@@ -14,7 +14,6 @@ class TestClass(TestCase):
 
     def login(self, email, password):
         """ login helper """
-
         return self.app.post('/login/',
                              data=dict(email=email,
                                        password=password),
