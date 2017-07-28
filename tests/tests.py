@@ -62,9 +62,9 @@ class Testclass(unittest.TestCase):
 
     def test_current_user(self):
         User.register('john', 'johndoe@email', '54321')
-        result = User.current_user('john')
-        self.assertIsInstance(result, tuple)
-        self.assertEqual(result[0], 'john')
+        result = User.current_user('johndoe@email')
+        self.assertIsInstance(result, dict)
+        self.assertEqual(result['username'], 'john')
 
 if __name__ == '__main__':
     unittest.main()

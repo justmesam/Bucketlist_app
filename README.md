@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.org/justmesam/Bucketlist_app.svg?branch=flask-develop)](https://travis-ci.org/justmesam/Bucketlist_app)
-[![Coverage Status](https://coveralls.io/repos/github/justmesam/Bucketlist_app/badge.svg?branch=flask-develop)](https://coveralls.io/github/justmesam/Bucketlist_app?branch=flask-develop)
+[![Build Status](https://travis-ci.org/justmesam/Bucketlist_app.svg?branch=master)](https://travis-ci.org/justmesam/Bucketlist_app)
+[![Coverage Status](https://coveralls.io/repos/github/justmesam/Bucketlist_app/badge.svg?branch=master)](https://coveralls.io/github/justmesam/Bucketlist_app?branch=master)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d32e41d93345488ca9b97985a199ca92)](https://www.codacy.com/app/justmesam/Bucketlist_app?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=justmesam/Bucketlist_app&amp;utm_campaign=Badge_Grade)
 [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/d32e41d93345488ca9b97985a199ca92)](https://www.codacy.com/app/justmesam/Bucketlist_app?utm_source=github.com&utm_medium=referral&utm_content=justmesam/Bucketlist_app&utm_campaign=Badge_Coverage)
 

@@ -81,18 +81,10 @@ class User(object):
         Data.add_data(self.user_data())
 
     @staticmethod
-    def current_user(username):
+    def current_user(email):
         """
         method gets user details using the session username to create the instance
          of the user logged so as to create a bucketlist"""
-        user_ = [i for i in Data.users if username == i['username']]
-        if len(user_) < 1:
-            return None
-        else:
-            for user in user_:
-                return (
-                    user['username'],
-                    user['email'],
-                    user['password'],
-                    user['_id']
-                    )
+        for user in Data.users:
+            if email == user['email']:
+                return user

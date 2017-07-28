@@ -9,16 +9,19 @@
 
     </head>
     <body>
+    <div id="container">
         {% include '_includes/_nav_bar.html'%}
-        <div>
+        <div id="body">
         {% include '_includes/_messages.html' %}
             {% block body %}
             {% endblock %}
         </div>
 
-        <footer>
-            <p> Created by<a href="https://github.com/justmesam/">Justmesam</a> <span class="far-right">Copyright (c) 2017 All Rights Reserved.</span></p>
+       <div id="footer"> 
+	<footer>
+            <p> Created by<a href="https://github.com/justmesam/">Justmesam</a><span class="far-right">Copyright (c) 2017 All Rights Reserved.</span></p>
         </footer>
-
+       </div>
+    </div>
     </body>
 </html>
